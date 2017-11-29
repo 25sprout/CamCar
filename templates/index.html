@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>湯包徵信社</title>
+		<link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+		<style type="text/css">
+		body {
+			background: #1B1C1D;
+		}
+		.block-wrapper {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			padding: 50px;
+			min-height: 100%;
+			color: #FF9C13;
+		}
+
+		.screen {
+			max-width: 900px;
+			width: 100%;
+			height: 450px;
+			background-size: cover;
+			background-position: center;
+			background-color: #242629;
+			background-image: url("noise.gif");
+		}
+
+	.camera {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		cursor: pointer;
+		width: 80px;
+		height: 80px;
+		border-radius: 50%;
+		border: 4px solid #FF9C13;
+		margin-top: 20px;
+		color: #FF9C13;
+		font-size: 32px;
+	}
+
+	.camera:hover {
+		border: 4px solid white;
+		color: white;
+	}
+
+	.logo {
+		width: 200px;
+		height: 54px;
+		margin-bottom: 10px;
+		background-image:
+	}
+
+	.modal {
+		display: none;
+		position: fixed;
+		z-index: 1;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		overflow: auto;
+		background-color: rgb(0, 0, 0);
+		background-color: rgba(0, 0, 0, 0.4);
+	}
+
+	.modal-conten {
+		background: #4E4E4E;
+		position: relative;
+		margin: auto;
+		padding: 50px 20px;
+		border-radius: 5px;
+		width: 80%;
+		height: 400px;
+	}
+
+	.close {
+		position: absolute;
+		cursor: pointer;
+		right: 10px;
+		top: 10px;
+		color: white;
+		float: right;
+		font-size: 28px;
+	}
+
+	.picture {
+		display: flex;
+		justify-content: center;
+		width: 100%;
+		height: 90%;
+		border: none;
+		background: #1B1C1D;
+	}
+
+	.picture iframe {
+		height: 100%;
+		width: 100%;
+		border: none;
+	}
+
+	.save {
+		cursor: pointer;
+		background: #FF9C13;
+		width: 100%;
+		text-align: center;
+		color: white;
+		margin-top: 20px;
+		font-size: 28px;
+		padding: 5px 0;
+	}
+
+	.save:hover {
+		background: #EA8B08;
+		color: white;
+	}
+		</style>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script type="text/javascript">
+		$(document).ready(function(){
+			$('.camera').on('click', (data) => {
+				$("#photoSrc").attr("src", "/photo");
+				$('.modal').css('display', 'flex');
+				
+				var parentW = $('.picture').width(); var	parentH = $('.picture').height(); var	width = 400; var	height = 261; var scale = height / width; if ( parentW > parentH ) { scale = width / height; $('#photoSrc').css('height', parentH); $('#photoSrc').css('width', parentH * scale); } else { scale = height / width; $('#photoSrc').css('height', parentW * scale); $('#photoSrc').css('width', parentW); }
+			});
+
+			$('.modal .close').on('click', () => {
+				$('.modal').css('display', 'none');
+			});
+		});
+		</script>
+	</head>
+	<body>
+		<div class="block-wrapper">
+			<image class="logo" src="{{ url_for('static', filename='tangbao.png') }}"></image>
+			<div class="screen">
+				<img class="video-stream" src="{{ url_for('videoFeed') }}">
+			</div>
+			<div class="camera">
+				<image src="{{ url_for('static', filename='camera.png') }}"></image>
+			</div>
+		</div>
+		<div class="modal">
+			<div class="modal-conten">
+				<div class="close">
+					x
+				</div>
+				<div class="picture">
+					<iframe id="photoSrc"></iframe>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
